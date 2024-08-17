@@ -194,7 +194,8 @@ for item in order:
     # 7. Store the dictionary items as variables
     item_name = item["Item name"]
     price = item["Price"]
-
+    quantity = item["Quantity"]
+    
     # 8. Calculate the number of spaces for formatted printing
     num_name_spaces = 24 - len(item_name)
     num_price_spaces = 4 - len(str(price))
