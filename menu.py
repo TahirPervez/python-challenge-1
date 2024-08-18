@@ -129,15 +129,15 @@ while place_order:
                 if menu_selection in menu_items.keys():
                     # Store the item name as a variable
                     selected_item = menu_items[menu_selection]
-
+                    selected_item_name = selected_item['Item name']
                     # Ask the customer for the quantity of the menu item
-                    quantity = input(f"How many {selected_item['Item name']} do you want? " +
-                                     f"Invalid quantities will default to 1. "
-                                     )
+                    quantity = input(f"How many {selected_item_name} do you want? " +
+                                     f"Invalid quantities will default to 1. ")
                     # Check if the quantity is a number, default to 1 if not
-                    if quantity.isdigit():
+                    if quantity.isdigit() and int(quantity) > 0: # Calling quanitities less than 1 as invalid
                             quantity = int(quantity)
                     else:
+                        print("Bad Quantity. Default to 1.")
                         quantity = 1
                     # Add the item name, price, and quantity to the order list
                     order.append({
@@ -147,13 +147,15 @@ while place_order:
                     })
                     # Tell the customer that their input isn't valid
                 else:
-                    print("Value not in menu.")
+                    print("Invalid option. Please enter a valid option.")                    
 
-                # Tell the customer they didn't select a menu option                    
+                # Tell the customer they didn't select a menu option
+            else:
+                print("Invalid option. Please enter a valid digit.")                    
         else:
             # Tell the customer they didn't select a menu option
             print(f"{menu_category} was not a menu option.")
-    else:
+    else: 
         # Tell the customer they didn't select a number
         print("You didn't select a number.")
 
@@ -210,7 +212,11 @@ for item in order:
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
-bill = []
-for item in order:
-    bill.append(item["Price"] * item["Quantity"])
+
+bill = [item["Price"] * item["Quantity"]for item in order]
+
+# bill = []
+# for item in order:
+#     bill.append(item["Price"] * item["Quantity"])
+    
 print(f"You're total is ${sum(bill):.2f}")
